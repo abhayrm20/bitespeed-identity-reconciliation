@@ -1,10 +1,10 @@
 import { Handler } from 'express';
 import morgan, { StreamOptions } from 'morgan';
 import { Logger } from 'winston';
-import { InternalError } from '../errors/internal-error';
-import { loggerInstance } from '../services/custom-logger';
 import { middlewareLogLevels } from '../types/enums';
 import { Express } from 'express';
+import { loggerInstance } from './custom-logger';
+import { InternalError } from './errors/internal-error';
 
 const stream: StreamOptions = {
   write: (message) => loggerInstance.http(message),

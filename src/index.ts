@@ -1,8 +1,14 @@
 import moment from 'moment-timezone';
 moment.tz.setDefault('Asia/Kolkata');
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { app } from './app';
 import { LogLevelIndicators, prismaWrapper } from './services/prisma-wrapper';
+
+import { loggerInstance } from './middlewares/custom-logger';
+loggerInstance.initialize();
 
 const start = async () => {
   try {
