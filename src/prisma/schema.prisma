@@ -20,7 +20,8 @@ model Contact {
   updatedAt            DateTime   @updatedAt             
   deletedAt            DateTime?
 
-  @@index([phoneNumber, email])
+  @@index([phoneNumber])
+  @@index([email])
 }
 
 enum PrecedenceTypes {
