@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Contact {
-	id                   Int        @id              
+  id                   Int        @id  @default(autoincrement())
   phoneNumber          String?
   email                String?
   linkedId             Int? 
