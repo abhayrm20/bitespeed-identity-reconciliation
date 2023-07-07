@@ -10,6 +10,7 @@ import { errorHandlers } from './middlewares/error-handlers';
 import { attachRequestIds } from './middlewares/request-ids';
 import { LoggerMiddleware } from './middlewares/logger-middleware';
 import { middlewareLogLevels } from './types/enums';
+import { appRouter } from './routes';
 
 const app = express();
 app.set('trust proxy', true);
@@ -31,7 +32,7 @@ app.use(
     .logger
 );
 
-// app.use('/', appRouter);
+app.use('/', appRouter);
 
 // * Error handlers
 app.use(prismaConnectionErrorHandler);
