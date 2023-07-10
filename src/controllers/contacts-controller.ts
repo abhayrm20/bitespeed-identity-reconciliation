@@ -1,5 +1,5 @@
 import { Contact, PrecedenceTypes } from '@prisma/client';
-import { NotAllowedErrors } from '../configs/errorCodes';
+import { InternalErrors } from '../configs/errorCodes';
 import { BadRequestError } from '../middlewares/errors/bad-request-error';
 import { prismaWrapper } from '../services/prisma-wrapper';
 
@@ -68,7 +68,7 @@ class Read {
     phoneNumber: string | null;
   }) {
     if (!email && !phoneNumber) {
-      throw new BadRequestError(NotAllowedErrors.illegalImplementation);
+      throw new BadRequestError(InternalErrors.illegalImplementation);
     }
 
     if (email && !phoneNumber) {
@@ -208,8 +208,6 @@ class Utils {
       (contact) => contact.linkPrecedence === PrecedenceTypes.primary
     );
 
-    console.log({ existingContacts });
-
     if (_primaryContact) {
       primaryContactId = _primaryContact.id;
     } else {
@@ -220,7 +218,7 @@ class Utils {
       if (linkedId) {
         primaryContactId = linkedId;
       } else {
-        throw new BadRequestError(NotAllowedErrors.illegalImplementation);
+        throw new BadRequestError(InternalErrors.somethingWentWrong);
       }
     }
 
@@ -260,8 +258,6 @@ class Utils {
         primaryContacts.length
       );
 
-      console.log({ primaryContacts, contactsToBeMarkedAsSecondary });
-
       const updatedContacts = await Update.markMultipleAsSecondary(
         contactsToBeMarkedAsSecondary.map((contact) => contact.id),
         primaryContact.id
@@ -282,13 +278,6 @@ class Utils {
       (contact) =>
         contact.phoneNumber === phoneNumber && contact.email === email
     );
-
-    console.log({
-      existingContacts,
-      sortedContacts,
-      primaryContacts,
-      primaryContact,
-    });
 
     // * If there's no contact with same details, creating a new secondary contact
     if (!contactWithSameDetails) {
