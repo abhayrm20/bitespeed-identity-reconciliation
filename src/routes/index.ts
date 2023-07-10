@@ -8,16 +8,15 @@ const router = Router();
 router.post(
   '/identify',
   body('email')
-    .optional()
+    .optional({ nullable: true })
     .isEmail()
     .if(body('phoneNumber').not().exists())
     .exists({ checkFalsy: true })
     .withMessage('Invalid email ID'),
   body('phoneNumber')
-    .optional()
+    .optional({ nullable: true })
     .isString()
     .isNumeric()
-    .isLength({ min: 10, max: 10 })
     .if(body('email').not().exists())
     .exists({ checkFalsy: true })
     .withMessage('Invalid phone number'),
