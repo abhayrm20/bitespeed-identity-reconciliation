@@ -7,11 +7,11 @@ As per the task requirement, I've fulfilled all the steps as mentioned. Please l
 
 ### Steps to run
 
-1. Clone this repository
+1. Clone this repository:
    `git clone git@github.com:abhayrm20/bitespeed-identity-reconciliation.git`
-2. Run the docker compose command to spin up postgres instance and the app
+2. Run the docker compose command to spin up postgres instance and the app:
    `docker compose up`
-3. The app will start on port 3000, and the endpoint is `/identify`
+3. The app will start on port 3000, and the endpoint is `/identify`.
    Full EP: `http://localhost:3000/identify`
 
 Looking forward to working with you!
