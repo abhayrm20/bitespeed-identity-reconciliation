@@ -1,0 +1,28 @@
+version: "3"
+services:
+  postgres:
+      image: postgres:14
+      ports:
+        - "5433:5432"
+      environment:
+        POSTGRES_USER: bitespeed
+        POSTGRES_PASSWORD: thePass
+        POSTGRES_DB: contacts
+  api:
+    restart: on-failure
+    depends_on:
+      - postgres
+    build:
+      dockerfile: Dockerfile
+      context: .
+    environment:
+      POSTGRES_URI: postgres://bitespeed:thePass@postgres:5432/contacts
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    # command: npm run start:docker
+    volumes:
+      - .:/app/
+      - /app/node_modules
+  

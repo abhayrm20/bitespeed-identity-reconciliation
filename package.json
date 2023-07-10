@@ -4,15 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-prod": "node ./src/index.js",
+    "start-prod": "node ./build/index.js",
     "clean": "del ./build/* ",
     "build": "npm run clean && tsc --pretty",
-    "start-with-generate": "npm run prisma:generate && npm run prisma:migrate-deploy; ts-node-dev --poll src/index.ts",
     "start": "ts-node-dev --poll src/index.ts",
     "prisma:generate": "npx prisma generate --schema=./src/prisma/schema.prisma",
-    "prisma:migrate-dev": "npx prisma migrate dev --preview-feature --name=prisma_migration_$(date +'%s')",
     "prisma:studio-dev": "npx prisma studio --port 7000",
-    "prisma:migrate-deploy": "npx prisma migrate deploy --schema=./src/prisma/schema.prisma"
+    "prisma:migrate-deploy": "npx prisma migrate deploy --schema=./src/prisma/schema.prisma",
+    "start:docker": "npm run prisma:generate && npm run prisma:migrate-deploy && npm run build && npm run start-prod"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
