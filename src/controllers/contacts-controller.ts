@@ -274,18 +274,18 @@ class Utils {
     }
 
     // * Check if there's a contact with same details
-    const contactWithSameDetails = sortedContacts.find((contact) => {
-      if (!phoneNumber) {
-        return email === contact.email;
-      } else if (!email) {
-        return phoneNumber === contact.phoneNumber;
-      } else {
-        return contact.phoneNumber === phoneNumber && contact.email === email;
-      }
-    });
+    const contactWithSamePhoneNumber = sortedContacts.find(
+      (contact) => phoneNumber === contact.phoneNumber
+    );
+    const contactWithSameEmail = sortedContacts.find(
+      (contact) => email === contact.email
+    );
 
     // * If there's no contact with same details, creating a new secondary contact
-    if (!contactWithSameDetails) {
+    if (
+      (email && !contactWithSameEmail) ||
+      (phoneNumber && !contactWithSamePhoneNumber)
+    ) {
       const newContact = await Create.newSecondary({
         email,
         phoneNumber,
